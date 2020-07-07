@@ -27,6 +27,7 @@
 </template>
 <script>
 import condition from './condition.vue'
+import http from '../../utils/http'
 export default {
     components:{
         condition
@@ -43,6 +44,11 @@ export default {
         this.getImage()
     },
     methods:{
+        getCartoonList() {
+            http.get('user/getList').then(d=>{
+                console.log('列表list',d)
+            })  
+        },
         getImage(){
             for(var i=1;i<=6;i++){
                 this.imageSrc.push(require('../../assets/image/lunbo'+i+'.jpg'))

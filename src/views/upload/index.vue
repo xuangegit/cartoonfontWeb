@@ -68,9 +68,7 @@ export default {
     mounted(){
         document.title="动漫上传";
         console.log('env',process.env)
-        http.get('user/getList').then(d=>{
-            console.log('列表list',d)
-        })
+      
     },
     methods:{
         processHandle(event,file,list){
