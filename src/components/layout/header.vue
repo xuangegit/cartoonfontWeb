@@ -32,14 +32,14 @@
                 </div>
                 <div v-if="!userData.isLogin" @click="gotoLogin('first')">登录</div>
                 <div v-if="!userData.isLogin" @click="gotoLogin('second')">注册</div>
-                <!-- <div><i class="el-icon-loginOut"></i></div> -->
+                <div v-if="userData.isLogin" @click="loginOut">退出</div>
             </div>
         </div>
 
     </div>
 </template>
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters,mapActions} from 'vuex'
 export default {
     data(){
         return {
@@ -57,6 +57,7 @@ export default {
         })
     },
     methods: {
+        ...mapActions('user',{userLoginOut: 'userLoginOut'}),
         gotoLogin(value) {
             this.$router.push({name: 'login',params:{activeName: value}})
         },
@@ -65,6 +66,11 @@ export default {
             if(command=="upload")
                 this.$router.push('/upload')
             // alert(222)
+        },
+        loginOut(){
+            this.$confirm('确认退出？').then(()=>{
+                this.userLoginOut()
+            })
         }
     },
     mounted(){

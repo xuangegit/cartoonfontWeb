@@ -16,7 +16,7 @@ const actions = {
         console.log('Actios state',state)
         commit('logined',userData)
     },
-    userOut({commit}){
+    userLoginOut({commit}){
         commit('loginOut')
     }
 }

@@ -8,6 +8,14 @@
                     <div class="loginBox">
                        
                             <el-form :model="loginForm" ref="loginForm" :rules="loginRules">
+                                <div class="block">
+                                    <el-date-picker
+                                    v-model="value2"
+                                    type="month"
+                                    value-format="yyyy-MM"
+                                    placeholder="选择月">
+                                    </el-date-picker>
+                                </div>
                                 <el-form-item prop="phone"> 
                                     <el-input placeholder="请输入手机号" v-model="loginForm.phone" prefix-icon="el-icon-user"></el-input>
                                 </el-form-item>
@@ -45,12 +53,15 @@
     
 <script>
 import http from '../../utils/http'
+// import {throttle} from '../../utils/common'
 import moment from 'moment'
 import {mapGetters,mapActions} from 'vuex'
 export default {
     data(){
         return {
             activeName: 'first',
+            value2: moment((new Date().getTime()-24*3600*1000)).format('YYYY-MM'),
+            // defaultValue: ,
             loginForm: {
                 phone: '',
                 password: ''
@@ -133,7 +144,12 @@ export default {
         })
     },  
     mounted(){
-       console.log('router',this.$route)
+        var time = new Date().getTime()-30*24*3600*1000
+        var values =  moment(time).format('YYYY-MM');
+        console.log('values',values)
+    //    window.addEventListener('mouseover',throttle(function(){
+    //     //    console.log('mouserOver')
+    //    },500))
        if(this.$route.params && this.$route.params.activeName) {
            this.activeName = this.$route.params.activeName
        }
@@ -141,6 +157,7 @@ export default {
     methods: {
         ...mapActions('user',{userLogin:'userLogin'}),
         login() {
+            console.log('value2',this.value2)
             // this.$router.push({path:'/'})
             this.$refs.loginForm.validate(valid=>{
                 if(valid){

@@ -27,6 +27,11 @@ var router = new VueRouter({
             path: '/upload',
             name: 'upload',
             component:()=>import('../views/upload')
+        },
+        {
+            path: '/mytest',
+            name: 'myTest',
+            component:()=>import('../views/myTest')
         }
     ]    
 })
