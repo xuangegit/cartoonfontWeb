@@ -7,8 +7,10 @@ import './assets/style/reset.css'
 import './assets/font/iconfont.css'
 import store from './store'
 
+
 Vue.use(elementUi)
 Vue.config.productionTip = false
+
 
 new Vue({
   render: h => h(App),

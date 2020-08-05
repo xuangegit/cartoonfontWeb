@@ -2,7 +2,7 @@
     <div class="loginRoot">
         <div class="loginWrap">
             
-            <el-tabs v-model="activeName" class="login_tab">  
+            <!-- <el-tabs v-model="activeName" class="login_tab">  
                 <div class="login_title">动漫管理系统</div>
                 <el-tab-pane label="登录" name="first" v-if="!userData.isLogin">
                     <div class="loginBox">
@@ -46,7 +46,58 @@
                             </el-form>
                     </div>
                 </el-tab-pane>
-            </el-tabs>
+            </el-tabs> -->
+            <div class="login_tab">  
+                <div class="login_title">动漫管理系统</div>
+                <div class="container" :class="{active: isActive}">
+                    <div class="loginBox">
+                       
+                            <el-form :model="loginForm" ref="loginForm" :rules="loginRules">
+                                <div class="block">
+                                    <el-date-picker
+                                    v-model="value2"
+                                    type="month"
+                                    value-format="yyyy-MM"
+                                    placeholder="选择月">
+                                    </el-date-picker>
+                                </div>
+                                <el-form-item prop="phone"> 
+                                    <el-input placeholder="请输入手机号" v-model="loginForm.phone" prefix-icon="el-icon-user"></el-input>
+                                </el-form-item>
+                                <el-form-item prop="password"> 
+                                    <el-input placeholder="密码" v-model="loginForm.password" prefix-icon="el-icon-lock" type="password" autocomplete="new-password"></el-input>
+                                </el-form-item>
+                                <el-form-item>
+                                    <el-button type="primary" class="loginbtn" @click="login">登录</el-button>
+                                </el-form-item>
+                                <el-form>
+                                    <el-link style="float:right" @click="isActive=!isActive">注册</el-link>
+                                </el-form>
+                            </el-form>
+                    </div>
+                </div>
+                <div class="container" :class="{active: !isActive}">
+                     <div class="loginBox">
+                            <el-form :model="registForm" ref="registForm" :rules="registRules">
+                                <el-form-item prop="userName"> 
+                                    <el-input placeholder="用户名" v-model="registForm.userName" prefix-icon="el-icon-user"></el-input>
+                                </el-form-item>
+                                <el-form-item prop="phone"> 
+                                    <el-input placeholder="手机号" v-model="registForm.phone" prefix-icon="el-icon-user"></el-input>
+                                </el-form-item>
+                                <el-form-item prop="password"> 
+                                    <el-input placeholder="密码" v-model="registForm.password" prefix-icon="el-icon-lock" type="password" autocomplete="new-password"></el-input>
+                                </el-form-item>
+                                <el-form-item>
+                                    <el-button type="primary" class="loginbtn" @click="regist">注册</el-button>
+                                </el-form-item>
+                                 <el-form>
+                                    <el-link style="float:right" @click="isActive=!isActive">登录</el-link>
+                                </el-form>
+                            </el-form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -60,6 +111,7 @@ export default {
     data(){
         return {
             activeName: 'first',
+            isActive: true,
             value2: moment((new Date().getTime()-24*3600*1000)).format('YYYY-MM'),
             // defaultValue: ,
             loginForm: {
@@ -191,14 +243,27 @@ export default {
 }
 </script>
 <style >
-    .login_tab {
-        text-align: center;
-    }
+    
     .login_tab .el-tabs__nav-wrap::after{
         /* height:0; */
     }
 </style>
 <style scoped>
+    .login_tab {
+        text-align: center;
+        position: relative
+    }
+    .container{
+        position: absolute;
+        top:80px;
+        left:64px;
+        backface-visibility: hidden;
+        transform: rotateY(180deg);
+        transition: all linear 1s
+    }
+    .active{
+        transform: rotateY(0)
+    }
     .loginRoot{
         height: 100%;
         background: url('../../assets/image/loginbg.jpg') no-repeat ;
@@ -215,7 +280,7 @@ export default {
         border-radius: 5px;
     }
     .login_title{
-        line-height: 50px;
+        line-height: 60px;
     }
     .loginbtn{
         width:100%;
