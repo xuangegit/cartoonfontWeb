@@ -69,7 +69,10 @@ export default {
         },
         loginOut(){
             this.$confirm('确认退出？').then(()=>{
-                this.userLoginOut()
+                this.userLoginOut().then((e)=>{
+                    console.log('xiaoxin',e)
+                    this.$router.push('/login')
+                })
             })
         }
     },

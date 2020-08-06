@@ -18,6 +18,10 @@ const actions = {
     },
     userLoginOut({commit}){
         commit('loginOut')
+        return new Promise((resolve) => {
+            commit('loginOut')
+            resolve('已经退出')
+        })
     }
 }
 const mutations = {
