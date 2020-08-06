@@ -2,9 +2,13 @@
    <div>
      <editor v-model="contents" refName="ref1" />
      <editor v-model="content2" refName="ref2"/>
+      <markdown-editor/>
      <div>
         <el-button type="primary" @click="clickHandle">test</el-button>
         <el-button type="primary" @click="clickHandle2">change</el-button>
+      </div>
+      <div>
+        <download-excel/> 
       </div>
    </div>
    
@@ -12,14 +16,18 @@
 <script>
 import  editor from './editor'
 // import myWangeditor from './myEditor'
+import downloadExcel from './downloadExcel'
+import markdownEditor from './markdown'
 export default {
   components: {
     // myWangeditor,
-    editor
+    editor,
+    downloadExcel,
+    markdownEditor
   },
   data(){
     return{ 
-      contents: '1231',
+      contents: '',
       content2:'123213',
     }
   },

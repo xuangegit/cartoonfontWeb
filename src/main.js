@@ -6,11 +6,14 @@ import router from './router'
 import './assets/style/reset.css'
 import './assets/font/iconfont.css'
 import store from './store'
+import http from './utils/http'
+import JsonExcel from 'vue-json-excel'
 
 
 Vue.use(elementUi)
+Vue.component('downloadExcel', JsonExcel)
 Vue.config.productionTip = false
-
+Vue.prototype.$http = http
 
 new Vue({
   render: h => h(App),
