@@ -41,8 +41,8 @@ var router = new VueRouter({
         {
             path: '/layout',
             name: 'layout',
-            component:()=>import('../views/layout/index')
-        },
+            component:()=>import('../components/newLayout/index.vue')
+        }
     ]    
 })
 export default router
