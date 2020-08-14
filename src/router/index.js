@@ -37,7 +37,12 @@ var router = new VueRouter({
             path: '/css3D',
             name: 'css#d',
             component:()=>import('../views/animate/backface-visibility.vue')
-        }
+        },
+        {
+            path: '/layout',
+            name: 'layout',
+            component:()=>import('../views/layout/index')
+        },
     ]    
 })
 export default router

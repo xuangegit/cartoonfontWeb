@@ -26,6 +26,8 @@
                             <!-- <el-dropdown-item>狮子头</el-dropdown-item>
                             <el-dropdown-item>螺蛳粉</el-dropdown-item> -->
                             <el-dropdown-item disabled icon="el-icon-info" command="mine">我的信息</el-dropdown-item>
+                            <el-dropdown-item icon="el-icon-menu" command="layout">页面布局</el-dropdown-item>
+                            
                           
                         </el-dropdown-menu>
                     </el-dropdown>
@@ -65,6 +67,8 @@ export default {
             console.log(command)
             if(command=="upload")
                 this.$router.push('/upload')
+            else if(command=='layout')
+                this.$touter.push('/layouat')    
             // alert(222)
         },
         loginOut(){
