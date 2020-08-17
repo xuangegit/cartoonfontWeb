@@ -1,9 +1,14 @@
 <template>
     <el-container>
-      <el-aside>
-        <nav-menu></nav-menu>
+      <el-aside :style="{width:(isCollapse?'auto':'200px')}">
+        <nav-menu :isCollapse="isCollapse"></nav-menu>
       </el-aside>
-      <el-main>Main</el-main>
+      <el-main>
+        <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
+          <el-radio-button :label="false">展开</el-radio-button>
+          <el-radio-button :label="true">收起</el-radio-button>
+        </el-radio-group>
+      </el-main>
     </el-container>
 </template>
 <script>
@@ -13,7 +18,9 @@ export default {
     navMenu
   },
   data(){
-    return {}
+    return {
+      isCollapse: false
+    }
   }
 }
 </script>
