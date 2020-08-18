@@ -10,7 +10,7 @@
             </template>
             <el-menu-item v-for="menuItem in subMenuData.children" :index="menuItem.path" :key="menuItem.path">{{menuItem.name}}</el-menu-item> 
           </el-submenu>
-          <el-menu-item v-else  :index="submenuData.path"  :key="subMenuData.path">
+          <el-menu-item v-else  :index="subMenuData.path"  :key="subMenuData.path">
              <i :class="subMenuData.icon"></i>
              <span slot="title">{{subMenuData.name}}</span>
           </el-menu-item>
@@ -44,6 +44,12 @@ export default {
             {name:"3D页面", path:'/css3D'},
             // {name:'测试页面',path:'/myTest'}
           ]
+        },
+        {
+          name:'我的测试3模块',
+          icon: 'el-icon-setting',
+          path:'upload'
+          
         }
       ]
     }

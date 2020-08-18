@@ -9,7 +9,7 @@
             <div class="back con" :class="{active:!isActive}">背面</div>
         </div>
         <div>
-          <el-buttton type="primary" @click="clickHandle">点击切换</el-buttton>
+          <el-button type="primary" @click="clickHandle">点击切换</el-button>
         </div>
     </div>
   </div>

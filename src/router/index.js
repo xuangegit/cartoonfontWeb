@@ -5,7 +5,7 @@ var router = new VueRouter({
     routes:[
         {
             path:'/',
-            component:()=> import('../views/home'),
+            component:()=>import('../components/newLayout/index.vue'),
             children:[
                 {
                     path:'/',
@@ -14,8 +14,23 @@ var router = new VueRouter({
                 {
                     path: '/main',
                     name: 'main',
-                    component:()=> import('../views/main')
-                }
+                    component:()=> import('../views/myTest')
+                },
+                {
+                    path: '/upload',
+                    name: 'upload',
+                    component:()=>import('../views/upload')
+                },
+                {
+                    path: '/mytest',
+                    name: 'myTest',
+                    component:()=>import('../views/myTest')
+                },    
+                {
+                    path: '/css3D',
+                    name: 'css3d',
+                    component:()=>import('../views/animate/backface-visibility.vue')
+                },
             ]
         },
         {
@@ -23,26 +38,7 @@ var router = new VueRouter({
             name:'login',
             component:()=> import('../views/login')
         },
-        {
-            path: '/upload',
-            name: 'upload',
-            component:()=>import('../views/upload')
-        },
-        {
-            path: '/mytest',
-            name: 'myTest',
-            component:()=>import('../views/myTest')
-        },
-        {
-            path: '/css3D',
-            name: 'css#d',
-            component:()=>import('../views/animate/backface-visibility.vue')
-        },
-        {
-            path: '/layout',
-            name: 'layout',
-            component:()=>import('../components/newLayout/index.vue')
-        }
+      
     ]    
 })
 export default router
