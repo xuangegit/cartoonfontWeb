@@ -13,6 +13,9 @@
                 </el-carousel-item>
             </el-carousel>
        </div>
+       <div>
+           <el-button @click="getCartoonList">查询</el-button>
+       </div>
        <div class="content">
            <div>
                <condition></condition>
