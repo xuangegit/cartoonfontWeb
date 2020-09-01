@@ -4,17 +4,23 @@
   </div>
 </template>
 <script>
+import {mapGetters,mapActions} from 'vuex'
 export default {
   name: 'humbger',
   data(){
     return {
-      isActive: false
+      // isActive: false
     }
   },
+  computed:{
+    ...mapGetters('app',{
+           isActive: 'isCollapse'
+        }),
+  },
   methods:{
+     ...mapActions('app',{triggerState: 'triggerState'}),
     triggerHandle(){
-      this.isActive=!this.isActive
-      this.$emit('trigger',this.isActive)
+       this.triggerState(!this.isActive)
     }
   }
 }

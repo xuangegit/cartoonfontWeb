@@ -1,11 +1,11 @@
 <template>
     <el-container>
-      <el-aside :style="{width:(isCollapse?'auto':'200px')}">
+      <el-aside :style="{width:(isCollapse?'auto':'200px'),backgroundColor:navBar.backgroundColor}">
         <nav-menu :isCollapse="isCollapse"></nav-menu>
       </el-aside>
       <el-main>
         <div class="header">
-          <humbger class="humbger-box" @trigger="triggerFn"></humbger>
+          <humbger class="humbger-box"></humbger>
         </div>
         <div class="mainContent">
            <router-view></router-view>
@@ -16,7 +16,7 @@
 <script>
 import navMenu from './navMenu'
 import humbger from './humbger'
-import {mapGetters,mapActions } from 'vuex'
+import {mapGetters } from 'vuex'
 export default {
   components:{
     navMenu,
@@ -29,15 +29,13 @@ export default {
   },
   computed:{
       ...mapGetters('app',{
-           isCollapse: 'isCollapse'
-        })
+           isCollapse: 'isCollapse',
+           navBar: 'navBar'
+        }),
+
   },
   methods:{
-    triggerFn(value){
-      console.log('trigger',value);
-      this.triggerState(value)
-    },
-    ...mapActions('app',{triggerState: 'triggerState'})
+    
   },
 }
 </script>
