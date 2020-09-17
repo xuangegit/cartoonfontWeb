@@ -45,6 +45,7 @@ export default {
   }
   .el-container{
     height:100%;
+    min-width:1300px;
   }
   .el-aside{
     border-right:1px solid #dddddd
@@ -52,6 +53,7 @@ export default {
   .el-main{
     padding: 0px;
     /* background-color: red; */
+    text-align: left;
   }
   .header{
     /* margin:0 10px; */

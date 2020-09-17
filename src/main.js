@@ -8,11 +8,14 @@ import './assets/font/iconfont.css'
 import store from './store'
 import http from './utils/http'
 import JsonExcel from 'vue-json-excel'
+// import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 
 
 Vue.use(elementUi)
 Vue.component('downloadExcel', JsonExcel)
 Vue.config.productionTip = false
+
 Vue.prototype.$http = http
 
 new Vue({

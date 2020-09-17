@@ -46,6 +46,11 @@ var router = new VueRouter({
                     name: 'articles',
                     component:()=>import('../views/articles')
                 },
+                {
+                    path:'/addBlog',
+                    name: 'addBlog',
+                    component: ()=>import('../views/myBlog')
+                }
             ]
         },
         {
