@@ -1,6 +1,6 @@
 <template>
     <el-container>
-      <el-aside :style="{width:(isCollapse?'auto':'200px'),backgroundColor:navBar.backgroundColor}">
+      <el-aside :style="{width:(isCollapse?'auto':'201px'),backgroundColor:navBar.backgroundColor}">
         <nav-menu :isCollapse="isCollapse"></nav-menu>
       </el-aside>
       <el-main>

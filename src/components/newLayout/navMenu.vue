@@ -14,13 +14,14 @@
             <el-menu-item v-for="menuItem in subMenuData.children" :index="menuItem.path" :key="menuItem.path">{{menuItem.name}}</el-menu-item> 
           </el-submenu>
           <el-menu-item v-else  :index="subMenuData.path"  :key="subMenuData.path">
-             <!-- <i :class="subMenuData.icon"></i>
-             <span slot="title">{{subMenuData.name}}</span> -->
-             <template slot="title">
+             <i :class="subMenuData.icon"></i>
+             <span slot="title">{{subMenuData.name}}</span>
+             <!-- <template slot="title">
                 <i :class="subMenuData.icon"></i>
                 <span>{{subMenuData.name}}</span>
-             </template>
+             </template> -->
           </el-menu-item>
+          
         </template>
     </el-menu>
   </div>
