@@ -11,6 +11,9 @@
         <div>
           <el-button type="primary" @click="clickHandle">点击切换</el-button>
         </div>
+        <div class="devicesContainer">
+          <el-button @click="start" type="primary">开始</el-button>
+        </div>
     </div>
   </div>
 </template>
@@ -24,7 +27,14 @@ export default {
   methods:{
     clickHandle(){
       this.isActive = !this.isActive
-    }
+    },
+    start(){
+      navigator.mediaDevices.getUserMedia({
+        audio:false,video:true
+      }).then(d=>{
+        console.log('打开摄像头',d)
+      })
+    },
   }
 }
 </script>
