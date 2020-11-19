@@ -70,6 +70,11 @@ export default {
           name:'文章管理',
           icon: 'el-icon-document',
           path:'articles'
+        },
+        {
+          name:'webRtc',
+          icon: 'el-icon-document',
+          path: '/rtc',
         }
       ]
     }

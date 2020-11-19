@@ -11,7 +11,12 @@
         <div>
           <el-button type="primary" @click="clickHandle">点击切换</el-button>
         </div>
-    </div>
+      </div>
+      <br/>
+      <div class="drag">
+        <!-- <img src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1605579299&di=fac16b65fbcd01b673dbd4e0b7f0d1b5&src=http://b-ssl.duitang.com/uploads/item/201611/07/20161107131631_2ZUmT.jpeg" alt="" draggable="true"> -->
+        <p draggable="true">这是可以拖拽的内容</p>
+      </div>
   </div>
 </template>
 <script>

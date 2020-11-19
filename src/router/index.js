@@ -50,6 +50,11 @@ var router = new VueRouter({
                     path:'/addBlog',
                     name: 'addBlog',
                     component: ()=>import('../views/myBlog')
+                },
+                {
+                    name:'rtc',
+                    path: '/rtc',
+                    component:()=>import('../views/rtc')
                 }
             ]
         },
