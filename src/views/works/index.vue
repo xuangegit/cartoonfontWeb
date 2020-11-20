@@ -19,6 +19,11 @@
             </el-form>
           </div>
     </div>
+    <div class="rtc">
+      <!-- <el-button @click="videoHandle">播放</el-button> -->
+      <video ref="video" width="400" height="300" autoplay></video>
+      <audio autoplay ref="audio"></audio>
+    </div>
   </div>
 </template>
 <script>
@@ -35,20 +40,32 @@ export default {
   },
   computed:{
     ...mapGetters('app',['navBar'])
+    
   },
   mounted(){
     // console.log('navBar',this.navBar)
     this.backgroundColor = this.navBar.backgroundColor;
     this.textColor = this.navBar.textColor
     this.activeTextColor = this.navBar.activeTextColor
+    this.videoHandle()
   },
   methods:{
-  
     leaveHandle(){
       // alert(1)
       this.isleave = true;
       this.isHover = false
     },
+    videoHandle(){
+     navigator.mediaDevices.getUserMedia({
+        video:true,audio:false
+      }).then(d=>{
+        console.log('stream',d)
+        this.$refs.video.srcObject = d
+      });
+      //  navigator.mediaDevices.getUserMedia({
+
+      //  })
+    }
    
   }
 }

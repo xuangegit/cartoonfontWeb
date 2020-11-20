@@ -29,7 +29,14 @@ export default {
   methods:{
     clickHandle(){
       this.isActive = !this.isActive
-    }
+    },
+    start(){
+      navigator.mediaDevices.getUserMedia({
+        audio:false,video:true
+      }).then(d=>{
+        console.log('打开摄像头',d)
+      })
+    },
   }
 }
 </script>
