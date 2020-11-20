@@ -45,7 +45,8 @@ export default {
   }
   .el-container{
     height:100%;
-    min-width:1300px;
+    /*min-width:1300px;*/
+    overflow: hidden;
   }
   .el-aside{
     border-right:1px solid #dddddd
@@ -54,6 +55,9 @@ export default {
     padding: 0px;
     /* background-color: red; */
     text-align: left;
+    
+
+    
   }
   .header{
     /* margin:0 10px; */
@@ -71,5 +75,7 @@ export default {
   }
   .mainContent{
     padding:10px;
+    min-width: 800px;
+    overflow: auto;
   }
 </style>
