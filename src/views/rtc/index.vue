@@ -11,14 +11,14 @@
               <div style="line-height:36px;text-align:center;color:#ec4276">webRtcRoom</div>
               <li class="clientItem" v-for="item in clientArray" :key="item">
                 {{item==socket.id?item+'(yourself)':item}}
-                <el-button v-if="item!=socket.id" @click="startVideo">开视频</el-button>
+                <el-button v-if="item!=socket.id" @click="startVideo(item)">开视频</el-button>
               </li>
             </ul>
           </el-col>
           <el-col :span="14">
               <div class="cameraBox">
-                <video  class="localVideo" ref="localVideo"></video>
-                <video  class="remoteVideo" ref="remoteVideo"></video>
+                <video  class="localVideo" ref="localVideo" width='200' heigh="160" autoplay></video>
+                <video  class="remoteVideo" ref="remoteVideo" width='400' heigh="320" autoplay></video>
                 <el-button @click="hangOn">挂断</el-button>
               </div>
           </el-col>
@@ -32,13 +32,20 @@ export default {
   data(){
     return {
       socket: null,
+      peerConnection: null,
       clientArray:[]
     }
   },
   mounted() {
     this.initIo()
+    //  this.rtcEventInit()
   },
   methods: {
+    rtcEventInit(){
+      this.peerConnection.onnegotiationneeded = this.handleNegotiationNeededEvent
+      this.peerConnection.onicecandidate = this.icecandidateHandle
+      this.peerConnection.ontrack = this.trackHandle
+    },
     hangOn() {
 
     },
@@ -68,10 +75,100 @@ export default {
       this.socket.on('updateRoomMember',(clientArray)=>{
         this.clientArray = clientArray
       })
+     
+      this.socket.on('videoAnswer',data=> {
+        if(data.id == this.socket.id) {
+          //设置远端sdp
+          this.peerConnection.setRemoteDescrition(new RTCSessionDescription(data.sdp)).then(()=> { 
+            return navigator.mediaDevices.getUserMedia({video:true})
+          }).then(localStream=> {
+            localStream.getTracks().forEach(track => this.peerConnection.addTrack(track, localStream));
+
+          })
+        }
+      })
+
+      this.socket.on('videoOffer',(data)=>{
+          console.log('offer')
+        if(data.id == this.socket.id){
+          console.log('offer')
+          this.peerConnection = new RTCPeerConnection() //接受端创建RTC连接
+          this.rtcEventInit()
+           var desc = new RTCSessionDescription(data.sdp);
+           this.peerConnection.setRemoteDescrition(desc).then(()=>{  //设置远端sdp
+             navigator.mediaDevices.getUserMedia({video:true}).then(localStream=> {
+               this.$refs.localVideo.srcObject = localStream 
+               localStream.getTracks().forEach(track => this.peerConnection.addTrack(track, localStream));
+               this.peerConnection.createAnswer().then(answer=> { //创建answer
+                 return this.setLocalDescription(answer) //设置本地sdp
+               }).then(()=>{
+                 this.sendSocketServe({
+                   type: 'videoAnswerToServer',
+                   data: {
+                     userId: this.socket.id,
+                     id: data.userId,
+                     sdp: this.peerConnection.localDescription
+                   }
+                 })
+               })
+             })
+           })
+        }
+      })
+
+      this.socket.on('new-ice-candidate',data=> {
+        this.peerConnection.addIceCandidate(new RTCIceCandidate(data.candidate))
+      })
     },
     sendMessage(){
         // if(this.socket) return 
       this.socket.emit('sentClientById',this.socket.id,`你好朋友,我是${this.socket.id}`)
+    },
+    startVideo(clientId){
+      this.friend = clientId
+      this.peerConnection = new RTCPeerConnection() //创建RTC连接通道
+      this.rtcEventInit()
+      let mediaConstraints = {video: true};
+      navigator.mediaDevices.getUserMedia(mediaConstraints).then( //获取本地本地视频流
+        localStream=>{ 
+          this.$refs.localVideo.srcObject = localStream
+         
+          
+        }
+      )
+    },
+    handleNegotiationNeededEvent(){
+      alert(1)
+      this.peerConnection.createOffer().then(offer=>{
+        return this.peerConnection.setLocalDescription(offer)
+      }).then(()=>{
+        this.sendSocketServer({
+          type: 'videoOfferToServer',
+          data:{
+            userId: this.socket.id, //当前用户id
+            id: this.friendId,  //对端客户id
+            sdp: this.peerConnection.localDescription
+          }
+        })
+      })
+    },
+    icecandidateHandle(event) {
+      if (event.candidate) {
+        this.sendSocketServer({
+          type: "new-ice-candidateToServer",
+          data:{
+            userId: this.socket.id,
+            id: this.friendId,
+            candidate: event.candidate
+          },
+        });
+      }
+    },
+    trackHandle(event) {
+      this.$refs.remoteVideo.srcObject = event.stream
+    },
+    sendSocketServe(params) {
+      this.socket.to('webRtcRoom').emit(params.type,params.data)
     }
   }
 }
