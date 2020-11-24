@@ -83,7 +83,7 @@ export default {
             return navigator.mediaDevices.getUserMedia({video:true})
           }).then(localStream=> {
             localStream.getTracks().forEach(track => this.peerConnection.addTrack(track, localStream));
-
+            
           })
         }
       })
@@ -132,13 +132,13 @@ export default {
       navigator.mediaDevices.getUserMedia(mediaConstraints).then( //获取本地本地视频流
         localStream=>{ 
           this.$refs.localVideo.srcObject = localStream
-         
+          this.handleNegotiationNeededEvent()
           
         }
       )
     },
     handleNegotiationNeededEvent(){
-      alert(1)
+      console.log('caller发起')
       this.peerConnection.createOffer().then(offer=>{
         return this.peerConnection.setLocalDescription(offer)
       }).then(()=>{
@@ -165,6 +165,7 @@ export default {
       }
     },
     trackHandle(event) {
+      console.log('event',event)
       this.$refs.remoteVideo.srcObject = event.stream
     },
     sendSocketServe(params) {
